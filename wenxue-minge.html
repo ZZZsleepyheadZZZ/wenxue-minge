@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>文学命格 · 二十问</title>
+<style>
+:root{
+  --bg-deep:#0f0d18;
+  --bg-card:#181624;
+  --bg-elev:#221f31;
+  --text-pri:#f4ecd8;
+  --text-sec:#b9ad8a;
+  --text-mut:#7c7360;
+  --gold:#c9a35d;
+  --gold-dim:#8a6f3f;
+  --crimson:#8b2942;
+  --crimson-soft:#a64461;
+  --border:rgba(201,163,93,.22);
+  --shadow:0 18px 60px rgba(0,0,0,.55);
+  --serif:'Noto Serif SC','Songti SC','STSong','宋体',serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{height:100%}
+body{
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(139,41,66,.18) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 50% 100%, rgba(201,163,93,.08) 0%, transparent 70%),
+    var(--bg-deep);
+  background-attachment:fixed;
+  color:var(--text-pri);
+  font-family:var(--serif);
+  min-height:100%;
+  display:flex;align-items:flex-start;justify-content:center;
+  padding:24px 16px;
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  letter-spacing:.02em;
+}
+.app{
+  width:100%;max-width:820px;
+  margin:auto;
+  background:linear-gradient(180deg, var(--bg-card) 0%, var(--bg-deep) 100%);
+  border:1px solid var(--border);
+  border-radius:18px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+  position:relative;
+}
+.app::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at top, rgba(201,163,93,.06) 0%, transparent 50%);
+  pointer-events:none;
+}
+.inner{position:relative;padding:48px 44px 40px}
+
+/* === Welcome === */
+.welcome{text-align:center;padding:60px 32px 50px}
+.welcome .seal{
+  font-size:14px;color:var(--text-mut);letter-spacing:.4em;
+  margin-bottom:30px;text-transform:uppercase
+}
+.welcome h1{
+  font-size:42px;font-weight:600;color:var(--gold);
+  margin-bottom:8px;letter-spacing:.12em;
+}
+.welcome h2{
+  font-size:22px;font-weight:400;color:var(--text-sec);
+  margin-bottom:36px;font-style:italic
+}
+.welcome p{
+  font-size:15px;color:var(--text-sec);
+  margin-bottom:14px;max-width:480px;margin-left:auto;margin-right:auto
+}
+.welcome .verse{
+  font-style:italic;color:var(--text-mut);
+  font-size:13px;margin-top:24px;line-height:2
+}
+.welcome .start-btn{margin-top:42px}
+.disclaimer{
+  margin-top:30px;font-size:12px;color:var(--text-mut);
+  border-top:1px dashed var(--border);padding-top:18px
+}
+
+/* === Info Form === */
+.info h2{
+  font-size:26px;color:var(--gold);margin-bottom:8px;letter-spacing:.1em
+}
+.info .sub{color:var(--text-sec);font-size:14px;margin-bottom:36px}
+.form-row{margin-bottom:24px}
+.form-row label{
+  display:block;font-size:13px;color:var(--text-mut);
+  letter-spacing:.3em;margin-bottom:10px;text-transform:uppercase
+}
+.gender-row{display:flex;gap:14px}
+.gender-opt{
+  flex:1;padding:16px;text-align:center;
+  border:1px solid var(--border);border-radius:10px;
+  background:var(--bg-elev);color:var(--text-pri);
+  font-family:var(--serif);font-size:16px;cursor:pointer;
+  transition:all .25s
+}
+.gender-opt:hover{border-color:var(--gold);background:rgba(201,163,93,.08)}
+.gender-opt.active{
+  background:linear-gradient(180deg, rgba(201,163,93,.18), rgba(139,41,66,.18));
+  border-color:var(--gold);color:var(--gold);
+  box-shadow:0 0 20px rgba(201,163,93,.2)
+}
+input[type=date]{
+  width:100%;padding:16px 18px;
+  background:var(--bg-elev);
+  border:1px solid var(--border);border-radius:10px;
+  color:var(--text-pri);font-family:var(--serif);font-size:16px;
+  color-scheme:dark;outline:none;transition:.25s
+}
+input[type=date]:focus{border-color:var(--gold)}
+input[type=date]::-webkit-calendar-picker-indicator{filter:invert(.8) sepia(.4) saturate(2) hue-rotate(15deg)}
+
+/* === Quiz === */
+.quiz-head{margin-bottom:28px}
+.progress-bar{
+  height:3px;background:rgba(201,163,93,.12);border-radius:2px;
+  overflow:hidden;margin-bottom:18px
+}
+.progress-fill{
+  height:100%;
+  background:linear-gradient(90deg, var(--crimson) 0%, var(--gold) 100%);
+  transition:width .5s cubic-bezier(.4,0,.2,1)
+}
+.quiz-meta{
+  display:flex;justify-content:space-between;
+  font-size:12px;color:var(--text-mut);letter-spacing:.2em;
+  margin-bottom:6px
+}
+.dim-tag{
+  display:inline-block;
+  font-size:11px;color:var(--crimson-soft);
+  letter-spacing:.3em;margin-bottom:18px;
+  padding:4px 12px;border:1px solid rgba(139,41,66,.3);
+  border-radius:20px;background:rgba(139,41,66,.08)
+}
+.question{
+  font-size:22px;color:var(--text-pri);
+  margin-bottom:36px;line-height:1.6;
+  font-weight:500
+}
+.opts{display:flex;flex-direction:column;gap:14px}
+.opt{
+  display:flex;align-items:flex-start;gap:14px;
+  padding:18px 22px;
+  border:1px solid var(--border);border-radius:12px;
+  background:var(--bg-elev);
+  color:var(--text-pri);font-family:var(--serif);font-size:15px;
+  cursor:pointer;text-align:left;line-height:1.7;
+  transition:all .25s cubic-bezier(.4,0,.2,1)
+}
+.opt:hover{
+  border-color:var(--gold-dim);
+  background:rgba(201,163,93,.06);
+  transform:translateX(4px)
+}
+.opt-marker{
+  flex-shrink:0;width:26px;height:26px;
+  border:1px solid var(--gold-dim);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;color:var(--gold);font-weight:600;
+  margin-top:2px;transition:.25s
+}
+.opt:hover .opt-marker{
+  background:var(--gold);color:var(--bg-deep);
+  box-shadow:0 0 14px rgba(201,163,93,.5)
+}
+
+/* === Result === */
+.result{text-align:center}
+.result-header{padding:50px 0 30px}
+.result-header .seal{
+  font-size:12px;color:var(--text-mut);letter-spacing:.5em;margin-bottom:20px
+}
+.result-header h2{
+  font-size:38px;color:var(--gold);margin-bottom:14px;
+  font-weight:600;letter-spacing:.1em
+}
+.result-header .tagline{
+  font-size:15px;color:var(--text-sec);
+  font-style:italic;max-width:520px;margin:0 auto;line-height:1.9
+}
+
+.coord-section{
+  margin:50px 0 30px;
+  padding:36px 28px;
+  border:1px solid var(--border);border-radius:14px;
+  background:linear-gradient(180deg, rgba(34,31,49,.6), rgba(24,22,36,.6));
+}
+.coord-section h3{
+  font-size:18px;color:var(--gold);margin-bottom:24px;
+  letter-spacing:.2em;text-align:center
+}
+.radar-wrap{display:flex;justify-content:center;margin-bottom:20px}
+.radar-wrap svg{max-width:340px;width:100%;height:auto}
+
+.matches-section{margin-top:50px}
+.matches-title{
+  font-size:13px;color:var(--crimson-soft);letter-spacing:.4em;
+  margin-bottom:28px;text-align:center;text-transform:uppercase
+}
+.matches{display:flex;flex-direction:column;gap:28px}
+.match-card{
+  padding:30px 32px;
+  border:1px solid var(--border);border-radius:14px;
+  background:linear-gradient(180deg, var(--bg-elev) 0%, var(--bg-card) 100%);
+  text-align:left;position:relative;overflow:hidden
+}
+.match-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg, transparent, var(--gold), transparent)
+}
+.match-card.main{
+  background:linear-gradient(180deg, rgba(139,41,66,.18) 0%, var(--bg-card) 80%);
+  border-color:rgba(201,163,93,.35);
+  box-shadow:0 0 30px rgba(139,41,66,.15)
+}
+.match-card.main::before{
+  background:linear-gradient(90deg, transparent, var(--crimson-soft), var(--gold), transparent)
+}
+.match-head{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  margin-bottom:18px;gap:16px;flex-wrap:wrap
+}
+.match-name{
+  font-size:26px;color:var(--gold);font-weight:600;
+  letter-spacing:.08em
+}
+.match-card.main .match-name{color:var(--text-pri);font-size:30px}
+.match-book{
+  font-size:13px;color:var(--text-mut);
+  letter-spacing:.15em;margin-top:4px
+}
+.match-tag{
+  font-size:13px;color:var(--crimson-soft);
+  letter-spacing:.3em;padding:6px 14px;
+  border:1px solid rgba(139,41,66,.3);border-radius:20px;
+  background:rgba(139,41,66,.08);white-space:nowrap
+}
+.match-pct{
+  font-size:14px;color:var(--gold);
+  font-weight:600;letter-spacing:.05em
+}
+.match-pct-bar{
+  height:4px;background:rgba(201,163,93,.12);
+  border-radius:2px;overflow:hidden;margin-bottom:18px
+}
+.match-pct-fill{
+  height:100%;background:linear-gradient(90deg, var(--crimson) 0%, var(--gold) 100%);
+  transition:width 1.2s cubic-bezier(.4,0,.2,1)
+}
+.match-desc{
+  font-size:15px;color:var(--text-pri);line-height:2;
+  margin-bottom:14px;text-align:justify
+}
+.match-verse{
+  font-size:13px;color:var(--text-sec);font-style:italic;
+  text-align:right;margin-top:14px;padding-top:14px;
+  border-top:1px dashed var(--border)
+}
+
+/* === 命运交织 / 隐蔽彩蛋 / 一句话命格 === */
+.narrative{
+  margin-top:50px;padding:36px 32px;
+  border:1px solid var(--border);border-radius:14px;
+  background:rgba(34,31,49,.4);
+  text-align:left
+}
+.narrative h3{
+  font-size:14px;color:var(--crimson-soft);letter-spacing:.4em;
+  margin-bottom:18px;text-align:center;text-transform:uppercase
+}
+.narrative p{
+  font-size:15px;color:var(--text-pri);line-height:2;margin-bottom:14px
+}
+.narrative p:last-child{margin-bottom:0}
+.narrative .one-liner{
+  text-align:center;font-size:20px;color:var(--gold);
+  font-weight:600;letter-spacing:.1em;padding:18px 0 6px;
+  border-top:1px dashed var(--border);margin-top:18px
+}
+
+.action-bar{
+  margin-top:50px;text-align:center;
+  display:flex;gap:14px;justify-content:center;flex-wrap:wrap
+}
+.btn{
+  padding:14px 32px;border-radius:30px;
+  font-family:var(--serif);font-size:15px;letter-spacing:.15em;
+  cursor:pointer;border:none;transition:all .25s
+}
+.btn-primary{
+  background:linear-gradient(135deg, var(--crimson) 0%, var(--gold) 100%);
+  color:var(--text-pri);font-weight:600;
+  box-shadow:0 6px 24px rgba(139,41,66,.3)
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(201,163,93,.4)}
+.btn-ghost{
+  background:transparent;border:1px solid var(--border);
+  color:var(--text-sec)
+}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+
+/* === 延伸阅读 === */
+.reading-section{
+  margin-top:50px;padding:36px 28px;
+  border:1px solid var(--border);border-radius:14px;
+  background:linear-gradient(180deg, rgba(34,31,49,.5), rgba(24,22,36,.5));
+}
+.reading-section h3{
+  font-size:14px;color:var(--crimson-soft);letter-spacing:.4em;
+  margin-bottom:8px;text-align:center;text-transform:uppercase
+}
+.reading-section .reading-sub{
+  font-size:13px;color:var(--text-mut);text-align:center;
+  margin-bottom:28px;font-style:italic
+}
+.book-list{display:flex;flex-direction:column;gap:20px}
+.book-item{
+  padding:22px 24px;
+  border:1px solid rgba(201,163,93,.15);border-radius:12px;
+  background:rgba(24,22,36,.6);
+  transition:border-color .25s
+}
+.book-item:hover{border-color:rgba(201,163,93,.35)}
+.book-title{
+  font-size:17px;color:var(--gold);font-weight:600;
+  letter-spacing:.05em;margin-bottom:4px
+}
+.book-author{
+  font-size:12px;color:var(--text-mut);letter-spacing:.2em;
+  margin-bottom:12px
+}
+.book-reason{
+  font-size:14px;color:var(--text-sec);line-height:1.9;
+  text-align:justify
+}
+
+/* === Animations === */
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.screen{animation:fadeIn .5s ease-out}
+
+/* Responsive */
+@media (max-width:640px){
+  .inner{padding:32px 22px 28px}
+  .welcome{padding:40px 12px}
+  .welcome h1{font-size:32px}
+  .welcome h2{font-size:18px}
+  .question{font-size:18px}
+  .match-card{padding:22px 18px}
+  .match-card.main .match-name{font-size:24px}
+  .match-name{font-size:22px}
+  .result-header h2{font-size:28px}
+}
+</style>
+</head>
+<body>
+<div class="app"><div class="inner" id="root"></div></div>
+
+<script>
+// ============================================================
+// 16 角色数据：每个角色占据 2^4 = 16 象限中的一格
+// 4 维度：重心(行/沉) × 取向(理/实) × 温度(热/冷) × 个体(个/群)
+// quad: { A: 行动, C: 沉思, I: 理想, R: 务实, H: 热情, K: 冷峻, X: 个体, W: 群体 }
+// ============================================================
+const CHARACTERS = [
+  { id:1, name:'安娜', book:'《安娜·卡列尼娜》', tag:'为爱燃尽',
+    quad:{A:1,I:1,H:1,W:1},
+    desc:'安娜的命格是"为爱燃尽"。她在社交场上如鱼得水，对爱情怀有近乎宗教般的理想——一旦点燃便不计后果。她活在他人的目光中，也死在情感的漩涡里。她用生命告诉你：当灵魂与世俗规则发生正面冲突，代价往往是全部。',
+    verse:'"我爱你，所以我要活得像我自己——哪怕粉身碎骨。"' },
+  { id:2, name:'孙悟空', book:'《西游记》', tag:'反骨行者',
+    quad:{A:1,I:1,H:1,X:1},
+    desc:'孙悟空的命格是"反骨行者"。他不属于任何秩序——天庭不容他，便反下天庭；佛门收他，仍要做斗战胜佛。他的孤独是主动选择的孤独。他用金箍棒告诉你：自由是要用整个青春去争的，而戴上紧箍的那一刻不是妥协，是更大的承担。',
+    verse:'"皇帝轮流做，明年到我家。"' },
+  { id:3, name:'冉阿让', book:'《悲惨世界》', tag:'救赎之柱',
+    quad:{A:1,R:1,H:1,W:1},
+    desc:'冉阿让的命格是"救赎之柱"。他接过主教的烛台，从此把自己活成了一座灯塔。他不会说漂亮的话，只会做事——开工厂、养孤儿、放走追捕自己的人。他用一生告诉你：救赎不是一次顿悟，是无数个早晨醒来仍然选择善。',
+    verse:'"你不再属于恶，你属于善。"' },
+  { id:4, name:'武松', book:'《水浒传》', tag:'孤胆之刃',
+    quad:{A:1,R:1,K:1,X:1},
+    desc:'武松的命格是"孤胆之刃"。他不结党、不依附，快意恩仇靠自己。他可以孤身打虎，也可以鸳鸯楼连杀十余人。他不解释、不后悔、不回头。他告诉你：有些事必须自己扛，扛过去就是英雄，扛不过去也是自己的选择。',
+    verse:'"杀人者，打虎武松也。"' },
+  { id:5, name:'杜丽娘', book:'《牡丹亭》', tag:'至情之魂',
+    quad:{C:1,I:1,H:1,W:1},
+    desc:'杜丽娘的命格是"至情之魂"。她在梦中爱上一个陌生人，因梦成病，因情而死，又因情复生。她的情感浓烈到能穿越生死。她告诉你：有些感情是真的可以跨越现实的，但代价是别人看你像看一个异类。',
+    verse:'"情不知所起，一往而深。"' },
+  { id:6, name:'林黛玉', book:'《红楼梦》', tag:'孤标傲世',
+    quad:{C:1,I:1,K:1,X:1},
+    desc:'林黛玉的命格是"孤标傲世"。她不迎合、不讨好，宁为玉碎不为瓦全。她的敏感是一种天赋，也是一种诅咒——能写出最动人的诗，也最先感受到花落。她告诉你：洁癖是一种活法，但活这种活法的人注定孤独。',
+    verse:'"质本洁来还洁去，强于污淖陷渠沟。"' },
+  { id:7, name:'包法利夫人', book:'《包法利夫人》', tag:'浪漫余烬',
+    quad:{C:1,R:1,H:1,W:1},
+    desc:'包法利夫人的命格是"浪漫余烬"。她嫁给了一个不懂她的人，于是去爱情里找、情欲里找、奢侈品里找，最后在债务里崩溃。她告诉你：现实的婚姻不杀人，对爱情的想象才杀人。',
+    verse:'"她要的，是天上掉下来的爱情。"' },
+  { id:8, name:'维特', book:'《少年维特的烦恼》', tag:'不羁之心',
+    quad:{C:1,R:1,H:1,X:1},
+    desc:'维特的命格是"不羁之心"。他爱得猛烈、敏感、不计后果。世界不解他，他便不解世界。他告诉你：与世界格格不入是一种真实，但真实不等于正确。当你拿命去坚持的东西不被看见时，你需要另一种活法。',
+    verse:'"我宁愿为这一瞬去死，也不愿为百无聊赖而生。"' },
+  { id:9, name:'堂吉诃德', book:'《堂吉诃德》', tag:'风车骑士',
+    quad:{A:1,I:1,K:1,W:1},
+    desc:'堂吉诃德的命格是"风车骑士"。他明知风车不是巨人，仍然冲上去。他不傻，他只是选择了不妥协。他告诉你：理想主义在旁人眼里是笑话，在自己心里是信仰。区别只在于：你愿不愿意为此付出一生。',
+    verse:'"我知道这是风车。但我不能因为它是风车，就放下我的长矛。"' },
+  { id:10, name:'浮士德', book:'《浮士德》', tag:'永恒之约',
+    quad:{A:1,I:1,K:1,X:1},
+    desc:'浮士德的命格是"永恒之约"。他用灵魂与魔鬼交换一切体验——知识、爱情、权力、美。他永不满足，最终在"为千万人开拓疆土"的瞬间找到值得停留的一刻。他告诉你：人生没有终极答案，只有不断追问的勇气。',
+    verse:'"你真美啊，请停留。"' },
+  { id:11, name:'伊丽莎白', book:'《傲慢与偏见》', tag:'清醒爱人',
+    quad:{A:1,R:1,K:1,W:1},
+    desc:'伊丽莎白的命格是"清醒爱人"。她一开始就拒绝偏见达西，但当她发现自己也带着偏见时，她不护短。她用最冷静的头脑谈最深的感情。她告诉你：爱情不能蒙住你的眼睛。能让你睁着眼爱上的那个人，才值得。',
+    verse:'"他是绅士，我是绅士的女儿，我们扯平了。"' },
+  { id:12, name:'基督山伯爵', book:'《基督山伯爵》', tag:'复仇之影',
+    quad:{C:1,R:1,K:1,W:1},
+    desc:'基督山伯爵的命格是"复仇之影"。他用十四年磨一把剑，剑出鞘时发现仇人都已老去或死去。他用法里亚的宝藏换来一个身份，却发现复仇只是开始。他告诉你：等待和希望是人类的全部，但复仇从来不是。',
+    verse:'"人类的全部智慧，就包含在这两个词里——等待与希望。"' },
+  { id:13, name:'哈姆雷特', book:'《哈姆雷特》', tag:'延宕王子',
+    quad:{C:1,I:1,K:1,W:1},
+    desc:'哈姆雷特的命格是"延宕王子"。他知道真相却迟迟不行动——不是不想，是想得太多。他的犹豫不是软弱，是清醒者的负担。他告诉你：思考是一种权力，也是一种诅咒。能想透的人，未必能做得出来。',
+    verse:'"To be or not to be, that is the question."' },
+  { id:14, name:'简·爱', book:'《简·爱》', tag:'自尊之火',
+    quad:{C:1,I:1,H:1,X:1},
+    desc:'简·爱的命格是"自尊之火"。她穷、她低、她不好看，但她不允许自己在爱里低头。她告诉你：爱情不是仰望，是平视。能让你不必仰视的人，才配得上你的爱。',
+    verse:'"你以为我穷、不好看，就没有感情吗？"'} ,
+  { id:15, name:'默尔索', book:'《局外人》', tag:'局外之人',
+    quad:{C:1,R:1,K:1,X:1},
+    desc:'默尔索的命格是"局外之人"。他对母亲的死无动于衷，对爱情可有可无，对审判觉得荒诞。他不是冷漠，是诚实——他拒绝表演任何情绪。他告诉你：在一个要求每个人表演悲伤的世界里，诚实就是罪。',
+    verse:'"今天妈妈死了，也许是昨天，我不知道。"' },
+  { id:16, name:'于连', book:'《红与黑》', tag:'攀援之星',
+    quad:{A:1,R:1,H:1,X:1},
+    desc:'于连的命格是"攀援之星"。他用野心、魅力和一颗骄傲的心，从底层爬到上流社会。他聪明、有激情，但他始终觉得自己不属于任何地方。最终他选择死亡，不是因为输了，是因为不愿再演了。',
+    verse:'"我的罪行，是试图在平等的名义下制造不平等。"' }
+];
+
+// ============================================================
+// 延伸阅读推荐：每人 2-3 本相关作品（不含16人物原著）
+// ============================================================
+const BOOK_RECOMMENDATIONS = {
+  '安娜': [
+    { title:'《霍乱时期的爱情》', author:'马尔克斯', reason:'另一种"为爱燃尽"——跨越半个世纪的等待，与安娜的激烈形成对照：同样是深情，一个选择燃烧，一个选择忍耐。' },
+    { title:'《革命之路》', author:'理查德·耶茨', reason:'一对中产夫妻在郊区生活中慢慢窒息——和安娜一样，困在"不该属于自己"的婚姻里，但结局更冷、更安静。' },
+  ],
+  '孙悟空': [
+    { title:'《普罗米修斯》', author:'埃斯库罗斯', reason:'西方文学中最古老的"反骨者"——为人类盗火，被锁在悬崖上任鹰啄食，仍不低头。和孙悟空一样，叛逆本身就是一种信仰。' },
+    { title:'《麦田里的守望者》', author:'塞林格', reason:'霍尔顿的"不想长大"和孙悟空的"不想被管"是同一种东西——对虚伪世界的本能抗拒，代价是被世界放逐。' },
+  ],
+  '冉阿让': [
+    { title:'《罪与罚》', author:'陀思妥耶夫斯基', reason:'拉斯科尔尼科夫杀了人之后被良心折磨，最终在西伯利亚找到救赎——和冉阿让走了同一条路，只是方向相反：一个从罪走向善，一个从善走向赎罪。' },
+    { title:'《九三年》', author:'雨果', reason:'雨果另一部关于"善与恶边界"的小说——法国大革命中，敌我双方的道德困境比战场更残酷。' },
+  ],
+  '武松': [
+    { title:'《赵氏孤儿》', author:'纪君祥', reason:'中国古典悲剧中最决绝的复仇故事——为了一句承诺，牺牲亲生骨肉。武松的快意恩仇在这里变成了更沉重的"大义灭亲"。' },
+    { title:'《老无所依》', author:'科马克·麦卡锡', reason:'一个退休警长面对无法理解的暴力世界——和武松一样，讲的是"一个人对抗一整个时代的规则"，只是结局更荒凉。' },
+  ],
+  '杜丽娘': [
+    { title:'《罗密欧与朱丽叶》', author:'莎士比亚', reason:'另一段"跨越生死边界"的爱情——但莎翁的恋人死在彼此怀里，杜丽娘却死在梦里又活了过来。同样是至情，一个向西，一个向东。' },
+    { title:'《雪国》', author:'川端康成', reason:'同样是"为美而活"的女性，驹子在雪国的寂寞和杜丽娘在梦中的热烈，构成了东方女性情感的一冷一热两极。' },
+  ],
+  '林黛玉': [
+    { title:'《弗兰肯斯坦》', author:'玛丽·雪莱', reason:'一个"不被理解的存在"的悲剧——怪物和林黛玉一样，敏感、才华横溢、被世界拒绝，最终走向自我毁灭。' },
+    { title:'《挪威的森林》', author:'村上春树', reason:'直子的"无法融入世界"和林黛玉的"不愿融入世界"互为镜像——一个是病态的退缩，一个是清醒的拒绝。' },
+  ],
+  '包法利夫人': [
+    { title:'《嘉莉妹妹》', author:'西奥多·德莱塞', reason:'另一个"在欲望中迷失"的女性——嘉莉从乡村到城市，从贫穷到富裕，但始终觉得缺了什么。和包法利夫人一样，她们要的不是东西，是一种"活法"。' },
+    { title:'《霍乱时期的爱情》', author:'马尔克斯', reason:'弗洛伦蒂诺用半个世纪等待爱情——和包法利夫人对爱情的执念相似，但一个等到了，一个没等到。区别在于：等待本身是否就是答案？' },
+  ],
+  '维特': [
+    { title:'《人间失格》', author:'太宰治', reason:'叶藏和维特是"同一种人"——对世界过于敏感，无法在虚伪中生存。一个用自杀结束，一个用酒精慢慢杀死自己。"不羁之心"的两种结局。' },
+    { title:'《悉达多》', author:'赫尔曼·黑塞', reason:'同样是一个敏感青年的精神漫游——但悉达多最终在河边找到了平静，而维特没有。两本书放在一起读，是一种"如果维特多走了几步"的想象。' },
+  ],
+  '堂吉诃德': [
+    { title:'《卡拉马佐夫兄弟》', author:'陀思妥耶夫斯基', reason:'阿廖沙的"理想主义信仰"和堂吉诃德的"理想主义疯狂"只有一线之隔——区别在于，一个有上帝托底，一个只有风车。' },
+    { title:'《小王子》', author:'圣埃克苏佩里', reason:'小王子和堂吉诃德一样"活在自己的世界里"——但小王子是天真，堂吉诃德是选择。两种"不合时宜"，一种让人微笑，一种让人心碎。' },
+  ],
+  '浮士德': [
+    { title:'《道林·格雷的画像》', author:'王尔德', reason:'道林用灵魂换取青春和美——和浮士德的"灵魂交易"如出一辙。王尔德把歌德的宏大命题缩小到一个人的脸上，结局同样令人叹息。' },
+    { title:'《魔山》', author:'托马斯·曼', reason:'另一部"用一生追问意义"的小说——汉斯在疗养院里度过了七年，和浮士德一样在知识、爱情、死亡之间徘徊，只是节奏更慢、更现代。' },
+  ],
+  '伊丽莎白': [
+    { title:'《米德尔马契》', author:'乔治·艾略特', reason:'另一部"聪明女性如何在婚姻与社会中找到自己"的小说——多萝西娅和伊丽莎白一样清醒，但艾略特比奥斯汀更残酷：清醒不一定带来幸福。' },
+    { title:'《一间自己的房间》', author:'弗吉尼亚·伍尔夫', reason:'伍尔夫的非虚构之作——"女人要写作，需要钱和一间自己的房间"。伊丽莎白的独立精神在这里变成了更现实的女性宣言。' },
+  ],
+  '基督山伯爵': [
+    { title:'《肖申克的救赎》', author:'斯蒂芬·金', reason:'另一个"在绝境中等待翻盘"的故事——安迪和唐泰斯一样，被冤枉、被关押，用耐心和智慧完成复仇。区别在于，安迪没有宝藏，只有时间。' },
+    { title:'《三个火枪手》', author:'大仲马', reason:'大仲马的另一部代表作——同样是冒险、复仇、忠诚与背叛，但更轻快、更浪漫。读完基督山的沉重，换一个角度看大仲马的另一面。' },
+  ],
+  '哈姆雷特': [
+    { title:'《等待戈多》', author:'贝克特', reason:'两个流浪汉等一个永远不会来的人——和哈姆雷特的"延宕"异曲同工。贝克特把莎士比亚的内心独白变成了荒诞派的行为艺术。' },
+    { title:'《卡拉马佐夫兄弟》', author:'陀思妥耶夫斯基', reason:'伊万·卡拉马佐夫的"如果上帝不存在，一切都被允许"和哈姆雷特的"To be or not to be"是同一个问题的两个版本——关于存在的意义，以及行动的理由。' },
+  ],
+  '简·爱': [
+    { title:'《一间自己的房间》', author:'弗吉尼亚·伍尔夫', reason:'伍尔夫用散文说出了简·爱用故事证明的事——女性的尊严不来自出身，来自独立。两本书跨越八十年，说的是同一句话。' },
+    { title:'《使女的故事》', author:'玛格丽特·阿特伍德', reason:'奥芙弗雷德在极权下保持内心自由——和简·爱在压迫中不丢掉自己是同一种精神。只是战场从客厅变成了国家。' },
+  ],
+  '默尔索': [
+    { title:'《西西弗神话》', author:'加缪', reason:'加缪的哲学随笔——"真正严肃的哲学问题只有一个：自杀"。默尔索是加缪思想的文学化身，读《西西弗》能让你理解默尔索为什么不哭。' },
+    { title:'《恶心》', author:'萨特', reason:'洛根丁突然觉得一切都没有意义——和默尔索的"无所谓"同源。萨特用哲学小说写出了存在主义的核心体验：世界是荒诞的，而你恰好看见了。' },
+  ],
+  '于连': [
+    { title:'《了不起的盖茨比》', author:'菲茨杰拉德', reason:'盖茨比和于连一样，从底层爬向上流社会，用魅力和野心换取一个"不属于自己"的位置——最终发现，那个位置从来不接受他们。' },
+    { title:'《嘉莉妹妹》', author:'西奥多·德莱塞', reason:'另一个"在阶级夹缝中挣扎"的故事——嘉莉和于连一样聪明、有野心，但社会不给他们公平的入场券。美国梦的B面。' },
+  ],
+};
+
+// ============================================================
+// 20 题：每题对应一个维度，4 选项对应程度
+// 维度：重心(行/沉)=5, 取向(理/实)=6, 温度(热/冷)=5, 个体(个/群)=4
+// 分数：1.0(A选项,主维度正向端最强) → 0.0(D选项,主维度反向端最强)
+// 多个 dim 表示该题同时影响多个维度
+// ============================================================
+const QUESTIONS = [
+  // === 重心（行动/沉思）5 题 ===
+  { dim:'重心', text:'一个难得完全空闲的下午，你更可能——',
+    opts:[
+      { t:'立刻安排出门或做点什么', s:1.0 },
+      { t:'找朋友出来小聚', s:0.7 },
+      { t:'看书、追剧、或发呆', s:0.3 },
+      { t:'不知不觉睡着了', s:0.0 }
+    ]},
+  { dim:'重心', text:'朋友临时约你说走就走的旅行——',
+    opts:[
+      { t:'十分钟收好包就出发', s:1.0 },
+      { t:'问清地点和时间再决定', s:0.65 },
+      { t:'想去但懒得动，最后没去', s:0.25 },
+      { t:'拒绝，最近没心情', s:0.05 }
+    ]},
+  { dim:'重心', text:'面前有一项挑战性的任务——',
+    opts:[
+      { t:'立刻动手，边做边想', s:1.0 },
+      { t:'先在脑子里把方案过一遍', s:0.25 },
+      { t:'找有经验的人问问', s:0.6 },
+      { t:'放一放，等灵感来', s:0.0 }
+    ]},
+  { dim:'重心', text:'你和一群不太熟的人参加聚会——',
+    opts:[
+      { t:'主动破冰，认识新朋友', s:1.0 },
+      { t:'找个角落观察，看大家聊', s:0.1 },
+      { t:'跟着大家的节奏，偶尔插话', s:0.5 },
+      { t:'提前开溜，回家更自在', s:0.0 }
+    ]},
+  { dim:'重心', text:'看到一篇很打动你的文章或视频——',
+    opts:[
+      { t:'立刻转发给朋友', s:1.0 },
+      { t:'收藏起来，自己反复看', s:0.15 },
+      { t:'想分享但忍住了', s:0.35 },
+      { t:'写一段评论或感想', s:0.4 }
+    ]},
+
+  // === 取向（理想/务实）6 题 ===
+  { dim:'取向', text:'你更不能接受自己变成——',
+    opts:[
+      { t:'一个没有热情和理想的人', s:1.0 },
+      { t:'一个没有原则和底线的人', s:0.85 },
+      { t:'一个没有能力养活自己的人', s:0.2 },
+      { t:'一个不被人喜欢的人', s:0.4 }
+    ]},
+  { dim:'取向', text:'你做事更看重的是——',
+    opts:[
+      { t:'这件事本身有没有意义', s:1.0 },
+      { t:'做成之后能带来什么', s:0.15 },
+      { t:'过程里开不开心', s:0.6 },
+      { t:'对别人有没有帮助', s:0.45 }
+    ]},
+  { dim:'取向', text:'一份工作摆在面前——',
+    opts:[
+      { t:'钱多但无意义，拒', s:1.0 },
+      { t:'钱少但能改变一些事，接受', s:0.85 },
+      { t:'钱多又有意义，最理想', s:0.5 },
+      { t:'先做着，再找更好的', s:0.15 }
+    ]},
+  { dim:'取向', text:'你更欣赏的人是——',
+    opts:[
+      { t:'有远大抱负、敢想的', s:1.0 },
+      { t:'脚踏实地、一步步走的', s:0.1 },
+      { t:'两者兼具的', s:0.5 },
+      { t:'看具体情境', s:0.3 }
+    ]},
+  { dim:'取向', text:'你给自己定目标的方式——',
+    opts:[
+      { t:'一定要做到最好', s:1.0 },
+      { t:'尽力而为，能做多少是多少', s:0.3 },
+      { t:'走一步看一步', s:0.1 },
+      { t:'没什么目标', s:0.0 }
+    ]},
+  { dim:'取向', text:'你对"规则"的态度——',
+    opts:[
+      { t:'不合理的规则就该打破', s:1.0 },
+      { t:'规则是保护人的，要遵守', s:0.1 },
+      { t:'看情况，灵活处理', s:0.4 },
+      { t:'不关心规则', s:0.6 }
+    ]},
+
+  // === 温度（热情/冷峻）5 题 ===
+  { dim:'温度', text:'朋友陷入低谷，你的第一反应——',
+    opts:[
+      { t:'立刻过去陪着', s:1.0 },
+      { t:'担心，但不知道说什么', s:0.3 },
+      { t:'想办法帮他解决问题', s:0.4 },
+      { t:'发条消息让他知道你在', s:0.7 }
+    ]},
+  { dim:'温度', text:'你看电影或读书时——',
+    opts:[
+      { t:'经常被感动到落泪', s:1.0 },
+      { t:'理性分析剧情', s:0.0 },
+      { t:'二者皆有，看作品', s:0.5 },
+      { t:'看个热闹就行', s:0.3 }
+    ]},
+  { dim:'温度', text:'别人误会了你——',
+    opts:[
+      { t:'情绪激动，一定要说清楚', s:1.0 },
+      { t:'冷静地摆事实讲道理', s:0.0 },
+      { t:'心里生气，但忍着', s:0.2 },
+      { t:'无所谓，不解释', s:0.1 }
+    ]},
+  { dim:'温度', text:'你和人发生冲突时——',
+    opts:[
+      { t:'难以控制情绪，会爆发', s:1.0 },
+      { t:'先冷静下来再沟通', s:0.0 },
+      { t:'看对方是谁再决定反应', s:0.3 },
+      { t:'走开，不想纠缠', s:0.05 }
+    ]},
+  { dim:'温度', text:'你做重大决定时——',
+    opts:[
+      { t:'跟着感觉走', s:1.0 },
+      { t:'列清单分析利弊', s:0.0 },
+      { t:'问问信任的人', s:0.5 },
+      { t:'等一下再决定', s:0.25 }
+    ]},
+
+  // === 个体（个体/群体）4 题 ===
+  { dim:'个体', text:'你搬家到一个新城市——',
+    opts:[
+      { t:'主动结交新朋友', s:1.0 },
+      { t:'慢慢来，等缘分', s:0.6 },
+      { t:'有一两个能交心的就够', s:0.5 },
+      { t:'网络聊聊就好，不必见面', s:0.0 }
+    ]},
+  { dim:'个体', text:'你更想要的周末是——',
+    opts:[
+      { t:'热闹的聚会', s:1.0 },
+      { t:'几个好友的小聚', s:0.85 },
+      { t:'一半一半', s:0.5 },
+      { t:'完全一个人独处', s:0.0 }
+    ]},
+  { dim:'个体', text:'你人生中，更需要——',
+    opts:[
+      { t:'几个能交心的知己', s:1.0 },
+      { t:'广阔的视野和独立感', s:0.0 },
+      { t:'亲密的伴侣', s:0.85 },
+      { t:'与自己相处的能力', s:0.15 }
+    ]},
+  { dim:'个体', text:'你对"独处"的看法——',
+    opts:[
+      { t:'享受，是我充电的方式', s:0.0 },
+      { t:'需要，但不能太久', s:0.45 },
+      { t:'害怕，最好有人陪', s:1.0 },
+      { t:'看状态，有时想逃', s:0.5 }
+    ]}
+];
+
+// ============================================================
+// 4 维度定义
+// ============================================================
+const DIMS = {
+  重心: { pair:['A','C'], pos:['行动','沉思'], desc:['行胜于言','思胜于行'] },
+  取向: { pair:['I','R'], pos:['理想','务实'], desc:['理想主义','现实主义'] },
+  温度: { pair:['H','K'], pos:['热情','冷峻'], desc:['热情如火','冷峻如冰'] },
+  个体: { pair:['W','X'], pos:['群体','个体'], desc:['人群中心','独行一隅'] }
+};
+
+// ============================================================
+// App state & 渲染
+// ============================================================
+const state = {
+  screen:'welcome', // welcome | info | quiz | result
+  gender:null,
+  birthday:'',
+  currentQ:0,
+  answers:[], // index of chosen option
+};
+
+const $ = sel => document.querySelector(sel);
+const root = $('#root');
+
+function render(){
+  if(state.screen==='welcome') root.innerHTML = renderWelcome();
+  else if(state.screen==='info') root.innerHTML = renderInfo();
+  else if(state.screen==='quiz') root.innerHTML = renderQuiz();
+  else if(state.screen==='result') root.innerHTML = renderResult();
+  attachHandlers();
+}
+
+function renderWelcome(){
+  return `
+  <div class="screen welcome">
+    <div class="seal">文学命格 · 二十问</div>
+    <h1>文 学 命 格</h1>
+    <h2>古典四象 · 仅供娱乐</h2>
+    <p>这里没有算命先生，也没有占星师。</p>
+    <p>只有二十道情境小题、一张古典四象的坐标，和十六位从未走出文学史的人——他们会替你活一遍你还没活明白的部分。</p>
+    <div class="verse">"每个人的命运，都早被某本书写过。"</div>
+    <button class="btn btn-primary start-btn" data-action="goto-info">开 始 翻 牌</button>
+    <div class="disclaimer">⚠ 本测试纯属文学娱乐，不构成任何现实决策建议。所有解读仅基于文学人物的象征意义。</div>
+  </div>`;
+}
+
+function renderInfo(){
+  return `
+  <div class="screen info">
+    <h2>落笔之前</h2>
+    <div class="sub">先告诉我，你的性别与生日——这会决定命格的"命理底色"。</div>
+    <div class="form-row">
+      <label>性别</label>
+      <div class="gender-row">
+        <button class="gender-opt ${state.gender==='女'?'active':''}" data-gender="女">女</button>
+        <button class="gender-opt ${state.gender==='男'?'active':''}" data-gender="男">男</button>
+        <button class="gender-opt ${state.gender==='其他'?'active':''}" data-gender="其他">其他</button>
+      </div>
+    </div>
+    <div class="form-row">
+      <label>生日</label>
+      <input type="date" id="birthday" value="${state.birthday}">
+    </div>
+    <div style="display:flex;justify-content:space-between;margin-top:36px;gap:14px;flex-wrap:wrap">
+      <button class="btn btn-ghost" data-action="goto-welcome">← 返回</button>
+      <button class="btn btn-primary" data-action="start-quiz">下一步 →</button>
+    </div>
+  </div>`;
+}
+
+function renderQuiz(){
+  const q = QUESTIONS[state.currentQ];
+  const total = QUESTIONS.length;
+  const pct = ((state.currentQ)/total*100).toFixed(1);
+  return `
+  <div class="screen">
+    <div class="quiz-head">
+      <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+      <div class="quiz-meta">
+        <span>第 ${state.currentQ+1} / ${total} 题</span>
+        <span>已答 ${state.answers.length} / ${total}</span>
+      </div>
+      <div class="dim-tag">维度 · ${q.dim}</div>
+    </div>
+    <div class="question">${q.text}</div>
+    <div class="opts">
+      ${q.opts.map((o,i)=>`
+        <button class="opt" data-action="answer" data-i="${i}">
+          <span class="opt-marker">${'ABCD'[i]}</span>
+          <span>${o.t}</span>
+        </button>`).join('')}
+    </div>
+  </div>`;
+}
+
+function dimCount(idx){
+  // 数到当前题之前已经回答了几个不同维度
+  const seen = new Set();
+  for(let i=0;i<=idx;i++){
+    seen.add(QUESTIONS[i].dim);
+  }
+  return seen.size;
+}
+
+// ============================================================
+// 结果计算：4 维度匹配 16 角色
+// ============================================================
+function computeResult(){
+  // 1) 计算用户 4 维度得分 (0-1, >= 0.5 偏正向端)
+  const dimSum = { 重心:0, 取向:0, 温度:0, 个体:0 };
+  const dimCounts = { 重心:0, 取向:0, 温度:0, 个体:0 };
+  state.answers.forEach((ans, idx)=>{
+    const q = QUESTIONS[idx];
+    const s = q.opts[ans].s;
+    dimSum[q.dim] += s;
+    dimCounts[q.dim]++;
+  });
+  const dimScores = { 重心:0.5, 取向:0.5, 温度:0.5, 个体:0.5 };
+  Object.keys(dimScores).forEach(d=>{
+    if(dimCounts[d]>0){
+      dimScores[d] = dimSum[d] / dimCounts[d];
+    }
+  });
+
+  // 2) 与 16 角色匹配：汉明距离 → 匹配分
+  // 用户每维度的偏向：>0.5 为正端，<0.5 为负端
+  const userVec = {
+    重心: dimScores['重心']>=0.5 ? 'A' : 'C',
+    取向: dimScores['取向']>=0.5 ? 'I' : 'R',
+    温度: dimScores['温度']>=0.5 ? 'H' : 'K',
+    个体: dimScores['个体']>=0.5 ? 'W' : 'X',
+  };
+
+  // 用更平滑的算法：每个维度的"接近度" = 1 - |用户分数 - 角色分数|
+  // 角色在每个维度上是 0 或 1
+  const charMatches = CHARACTERS.map(c=>{
+    const dimKeys = { 重心:['A','C'], 取向:['I','R'], 温度:['H','K'], 个体:['W','X'] };
+    let score = 0;
+    Object.keys(dimKeys).forEach(d=>{
+      const [pos,neg] = dimKeys[d];
+      // 角色的值：pos 端 = 1, neg 端 = 0
+      const charVal = c.quad[pos] || 0;
+      // 用户的值：dimScores[d]
+      const userVal = dimScores[d];
+      // 接近度（0-1，越接近越好）
+      score += 1 - Math.abs(userVal - charVal);
+    });
+    return { char:c, score };
+  });
+
+  // 按匹配分排序，取 top 3
+  charMatches.sort((a,b)=>b.score-a.score);
+  const top3 = charMatches.slice(0,3);
+
+  // 归一化为百分比
+  const total = top3.reduce((s,m)=>s+m.score,0);
+  top3.forEach(m=>{
+    m.pct = Math.round(m.score/total*100);
+  });
+  // 确保百分比是 5 的倍数
+  top3[0].pct = Math.round(top3[0].pct/5)*5;
+  top3[1].pct = Math.round(top3[1].pct/5)*5;
+  top3[2].pct = 100 - top3[0].pct - top3[1].pct;
+  if(top3[2].pct < 5){ top3[2].pct = 5; }
+
+  return { dimScores, userVec, top3 };
+}
+
+// ============================================================
+// 渲染结果页
+// ============================================================
+function renderResult(){
+  const r = computeResult();
+  const [main, sec, third] = r.top3;
+
+  // 命理底色（性别+生日）
+  const sub = state.gender ? `${state.gender}性` : '性成未表';
+  const birth = state.birthday || '未填';
+  const zodiac = getZodiac(state.birthday);
+
+  // 维度倾向描述
+  const dimDesc = (dim, score)=>{
+    const d = DIMS[dim];
+    if(Math.abs(score-0.5)<0.08) return `居中（${d.desc[0]} 与 ${d.desc[1]} 兼有）`;
+    return score>=0.5 ? d.desc[0] : d.desc[1];
+  };
+
+  return `
+  <div class="screen result">
+    <div class="result-header">
+      <div class="seal">文学命格 · 解 读</div>
+      <h2>${main.char.name} · ${main.char.tag}</h2>
+      <div class="tagline">${main.char.desc.split('。')[0]}。</div>
+    </div>
+
+    <div class="coord-section">
+      <h3>你的命理底色</h3>
+      <div style="text-align:center;color:var(--text-sec);font-size:14px;line-height:2.2;margin-bottom:18px">
+        ${sub} · 出生于 ${birth}${zodiac?` · ${zodiac}`:''}<br>
+        重心偏 <span style="color:var(--gold)">${dimDesc('重心', r.dimScores['重心'])}</span> ·
+        取向偏 <span style="color:var(--gold)">${dimDesc('取向', r.dimScores['取向'])}</span><br>
+        温度偏 <span style="color:var(--gold)">${dimDesc('温度', r.dimScores['温度'])}</span> ·
+        个体偏 <span style="color:var(--gold)">${dimDesc('个体', r.dimScores['个体'])}</span>
+      </div>
+      <h3 style="margin-top:30px">古典四象 · 坐标</h3>
+      <div class="radar-wrap">${renderRadar(r.dimScores)}</div>
+    </div>
+
+    <div class="matches-section">
+      <div class="matches-title">你的文学命格 · 三张牌</div>
+      <div class="matches">
+        ${renderMatchCard(main.char, main.pct, '主牌')}
+        ${renderMatchCard(sec.char, sec.pct, '副牌')}
+        ${renderMatchCard(third.char, third.pct, '暗牌')}
+      </div>
+    </div>
+
+    <div class="narrative">
+      <h3>命运交织</h3>
+      <p>主牌 <span style="color:var(--gold)">${main.char.name}</span> 是你的底色——它代表你骨子里最深处的那种活法，无论走到哪里都带着的痕迹。副牌 <span style="color:var(--gold)">${sec.char.name}</span> 则是你当前的处境，它在某个具体的领域里正在展开。暗牌 <span style="color:var(--gold)">${third.char.name}</span> 藏在你没意识到的地方——你还没活成 ta，但说不定哪天，命运的某一刻，ta 就会从你身体里走出来。</p>
+      <p>这三张牌的张力是：主牌给你方向，副牌给你处境，暗牌给你警醒。如果你继续按主牌的方式活，你可能变成副牌；如果主牌与副牌的冲突太大，你可能滑向暗牌。文学命格的智慧，不在于是哪一张牌，而在看你能不能把三张都读懂。</p>
+
+      <h3 style="margin-top:30px">隐藏彩蛋</h3>
+      <p>${getEasterEgg(r)}</p>
+
+      <div class="one-liner">"${getOneLiner(r)}"</div>
+    </div>
+
+    <div class="reading-section">
+      <h3>延伸阅读</h3>
+      <div class="reading-sub">基于你的命格，推荐几本气质相通的作品</div>
+      <div class="book-list">
+        ${renderBookRecs(r.top3.map(m=>m.char.name))}
+      </div>
+    </div>
+
+    <div class="action-bar">
+      <button class="btn btn-primary" data-action="restart">再 来 一 局</button>
+    </div>
+  </div>`;
+}
+
+function renderMatchCard(c, pct, label){
+  const isMain = label === '主牌';
+  return `
+  <div class="match-card ${isMain?'main':''}">
+    <div class="match-head">
+      <div>
+        <div class="match-name">${c.name}</div>
+        <div class="match-book">${c.book} · ${c.tag}</div>
+      </div>
+      <div class="match-tag">${label} ${pct}%</div>
+    </div>
+    <div class="match-pct-bar"><div class="match-pct-fill" style="width:${pct}%"></div></div>
+    <div class="match-desc">${c.desc}</div>
+    <div class="match-verse">${c.verse}</div>
+  </div>`;
+}
+
+function renderBookRecs(charNames){
+  // 收集三张牌的所有推荐，去重，主牌优先
+  const seen = new Set();
+  const books = [];
+  charNames.forEach(name=>{
+    const recs = BOOK_RECOMMENDATIONS[name] || [];
+    recs.forEach(b=>{
+      if(!seen.has(b.title)){
+        seen.add(b.title);
+        books.push({ ...b, fromName:name });
+      }
+    });
+  });
+  // 最多展示 5 本
+  return books.slice(0,5).map(b=>`
+    <div class="book-item">
+      <div class="book-title">${b.title}</div>
+      <div class="book-author">${b.author} · 与「${b.fromName}」气质相通</div>
+      <div class="book-reason">${b.reason}</div>
+    </div>`).join('');
+}
+
+// 简易生肖计算（2008 鼠年基准）
+function getZodiac(dateStr){
+  if(!dateStr) return '';
+  const d = new Date(dateStr);
+  const year = d.getFullYear();
+  const animals = ['鼠','牛','虎','兔','龙','蛇','马','羊','猴','鸡','狗','猪'];
+  const offset = (year - 2008) % 12;
+  return `${animals[(offset+12)%12]}年生`;
+}
+
+// 雷达图（SVG 4 维）
+function renderRadar(scores){
+  const dims = ['重心','取向','温度','个体'];
+  const cxs = scores['重心'], cxi = scores['取向'],
+        cxh = scores['温度'], cxx = scores['个体'];
+  const size = 320, cx = size/2, cy = size/2, r = 110;
+  const points = [cxs, cxi, cxh, cxx].map((v,i)=>{
+    const angle = (Math.PI*2*i)/4 - Math.PI/2;
+    return [cx + r*v*Math.cos(angle), cy + r*v*Math.sin(angle)];
+  });
+  const poly = points.map(p=>p.join(',')).join(' ');
+  return `
+  <svg viewBox="0 0 ${size} ${size}" xmlns="http://www.w3.org/2000/svg">
+    ${[0.25,0.5,0.75,1].map(t=>{
+      const pts = [0,1,2,3].map(i=>{
+        const angle = (Math.PI*2*i)/4 - Math.PI/2;
+        return [cx + r*t*Math.cos(angle), cy + r*t*Math.sin(angle)].join(',');
+      }).join(' ');
+      return `<polygon points="${pts}" fill="none" stroke="rgba(201,163,93,.15)" stroke-width="1"/>`;
+    }).join('')}
+    <line x1="${cx-r}" y1="${cy}" x2="${cx+r}" y2="${cy}" stroke="rgba(201,163,93,.1)"/>
+    <line x1="${cx}" y1="${cy-r}" x2="${cx}" y2="${cy+r}" stroke="rgba(201,163,93,.1)"/>
+    ${points.map((p,i)=>{
+      const next = points[(i+1)%4];
+      return `<line x1="${p[0]}" y1="${p[1]}" x2="${next[0]}" y2="${next[1]}" stroke="rgba(201,163,93,.06)"/>`;
+    }).join('')}
+    <polygon points="${poly}" fill="rgba(201,163,93,.25)" stroke="var(--gold)" stroke-width="2"/>
+    ${points.map((p,i)=>`<circle cx="${p[0]}" cy="${p[1]}" r="4" fill="var(--gold)"/>`).join('')}
+    ${[0,1,2,3].map(i=>{
+      const angle = (Math.PI*2*i)/4 - Math.PI/2;
+      const lx = cx + (r+22)*Math.cos(angle);
+      const ly = cy + (r+22)*Math.sin(angle);
+      const pos = ['重心','取向','温度','个体'][i];
+      const ends = ['行动/沉思','理想/务实','热情/冷峻','群体/个体'][i];
+      const val = [cxs, cxi, cxh, cxx][i];
+      const arrow = val>=0.5 ? ends.split('/')[0] : ends.split('/')[1];
+      return `
+        <text x="${lx}" y="${ly}" fill="var(--text-sec)" font-size="13" font-family="serif" text-anchor="middle" dominant-baseline="middle" letter-spacing="2">${pos}</text>
+        <text x="${lx}" y="${ly+16}" fill="var(--gold)" font-size="11" text-anchor="middle" font-family="serif">${arrow}</text>
+      `;
+    }).join('')}
+  </svg>`;
+}
+
+// 彩蛋：根据维度分布给一个隐藏提示
+function getEasterEgg(r){
+  const { dimScores } = r;
+  // 找最极端的一维
+  const ext = Object.entries(dimScores).map(([k,v])=>[k, Math.abs(v-0.5)]).sort((a,b)=>b[1]-a[1])[0];
+  const easters = {
+    重心:[
+      '如果你继续这么动（或这么静）下去，有一天你会发现自己要么被时代抛下，要么被自己困住。',
+      '行动和沉思的失衡，最终会让你错过某一类人——永远不会再遇到的那种。',
+    ],
+    取向:[
+      '理想主义者最大的风险，不是失败，是成功之后发现自己从未真正活过。',
+      '务实主义者最大的风险，不是妥协，是某天醒来发现自己已经忘了为什么出发。',
+    ],
+    温度:[
+      '你的热情（或冷峻）会让你得到一些东西，也会让你失去一些东西——而且常常是你最在意的那种东西。',
+      '如果你不学会调节温度，所有靠近你的人都会被灼伤（或冻伤）。',
+    ],
+    个体:[
+      '你最大的盲区，是看不见自己其实是某种关系的产物——无论你多独立。',
+      '你最大的盲区，是低估了"被看见"对一个人的意义——即使你不主动寻找它。',
+    ]
+  };
+  const [dim, extScore] = ext;
+  return easters[dim][Math.round(dimScores[dim])] || easters[dim][0];
+}
+
+// 一句话命格
+function getOneLiner(r){
+  const main = r.top3[0].char;
+  const oneLiners = {
+    '安娜':'为爱燃尽，灰亦不悔。',
+    '孙悟空':'一生反骨，半世紧箍。',
+    '冉阿让':'烛台一接，从此是善人。',
+    '武松':'虎可独打，路不独行。',
+    '杜丽娘':'梦里一生，死亦能生。',
+    '林黛玉':'质本洁来，还洁去。',
+    '包法利夫人':'不是爱情杀她，是想象。',
+    '维特':'真实即罪，仍愿真实。',
+    '堂吉诃德':'风车是风车，长矛是长矛。',
+    '浮士德':'永不满足，故永在追问。',
+    '伊丽莎白':'看得清的人，才爱得稳。',
+    '基督山伯爵':'十四年磨一剑，剑出已无人。',
+    '哈姆雷特':'想得透的人，未必做得出。',
+    '简·爱':'不仰视，方为真爱。',
+    '默尔索':'不演悲伤，是为罪。',
+    '于连':'爬到顶处，无人可认。'
+  };
+  return oneLiners[main.name] || '你的命格，正待书写。';
+}
+
+// ============================================================
+// 事件绑定
+// ============================================================
+function attachHandlers(){
+  document.querySelectorAll('[data-action]').forEach(el=>{
+    el.onclick = e => {
+      const a = el.dataset.action;
+      if(a==='goto-info'){ state.screen='info'; render(); }
+      else if(a==='goto-welcome'){ state.screen='welcome'; render(); }
+      else if(a==='start-quiz'){
+        if(!state.gender){ alert('请选择性别'); return; }
+        if(!state.birthday){ alert('请填写生日'); return; }
+        state.screen='quiz'; state.currentQ=0; state.answers=[]; render();
+        window.scrollTo({top:0,behavior:'smooth'});
+      }
+      else if(a==='answer'){
+        const i = parseInt(el.dataset.i);
+        state.answers.push(i);
+        if(state.currentQ < QUESTIONS.length-1){
+          state.currentQ++;
+          render();
+          window.scrollTo({top:0,behavior:'smooth'});
+        } else {
+          state.screen='result'; render();
+          window.scrollTo({top:0,behavior:'smooth'});
+        }
+      }
+      else if(a==='restart'){
+        state.screen='welcome';
+        state.gender=null; state.birthday='';
+        state.currentQ=0; state.answers=[];
+        render(); window.scrollTo({top:0,behavior:'smooth'});
+      }
+    };
+  });
+  document.querySelectorAll('[data-gender]').forEach(el=>{
+    el.onclick = ()=>{ state.gender = el.dataset.gender; render(); };
+  });
+  const bd = document.getElementById('birthday');
+  if(bd){
+    bd.onchange = (e)=>{ state.birthday = e.target.value; };
+  }
+}
+
+// 启动
+render();
+</script>
+</body>
+</html>
